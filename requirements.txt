@@ -5,5 +5,5 @@ jq
 pathlib
 tqdm
 tiktoken
-pinecone-client
+faiss-cpu
 python-dotenv
