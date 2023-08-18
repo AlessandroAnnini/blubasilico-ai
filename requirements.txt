@@ -1,0 +1,9 @@
+langchain
+streamlit
+openai
+jq
+pathlib
+tqdm
+tiktoken
+pinecone-client
+python-dotenv
