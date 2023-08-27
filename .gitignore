@@ -2,3 +2,4 @@ __pycache__
 .env
 recipes.zip
 src_recipes
+.DS_Store
