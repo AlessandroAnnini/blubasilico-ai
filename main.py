@@ -1,7 +1,13 @@
+import os
+from dotenv import load_dotenv
 import streamlit as st
 
 from utils.faiss_store import get_store
 from utils.chain import create_conversational_chain, use_conversational_chain
+from utils.agent import create_agent
+
+load_dotenv()
+os.environ["SERPAPI_API_KEY"] = os.getenv('SERPAPI_API_KEY')
 
 index_name = "blubasilico-ai"
 
@@ -42,7 +48,8 @@ def run_chat_app():
             full_response = ""
 
             # Return the answer from the database
-            answer = use_conversational_chain(prompt, st.session_state.chain)
+            # answer = use_conversational_chain(prompt, st.session_state.chain)
+            answer = st.session_state.agent.run(prompt)
 
             for response in answer:
                 full_response += response
@@ -83,7 +90,6 @@ if __name__ == "__main__":
         if "model" not in st.session_state:
             st.session_state.model = "gpt-4"
 
-        folder = "recipes"
         if "db" not in st.session_state and st.session_state.openai_api_key:
             st.session_state.db = get_store(
                 [index_name], st.session_state.openai_api_key
@@ -102,6 +108,9 @@ if __name__ == "__main__":
                 st.session_state.openai_api_key,
                 st.session_state.model,
             )
+
+        if "agent" not in st.session_state and st.session_state.openai_api_key:
+            st.session_state.agent = create_agent(st.session_state.db)
 
         run_chat_app()
     except Exception as e:
