@@ -48,7 +48,7 @@ def create_agent(docsearch):
   agent = initialize_agent(
     llm=llm,
     tools=tools,
-    agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
+    agent=AgentType.CHAT_CONVERSATIONAL_REACT_DESCRIPTION,
     memory=memory,
     verbose=True
   )
